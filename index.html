@@ -1,0 +1,135 @@
+ <!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Your Account</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .success-message {
+      text-align: center;
+      color: green;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<form id="signupForm">
+  
+  <div style="text-align: center; margin-bottom: 15px;">
+    <img src="hotel_15498339.png" alt="Hotel Logo" style="max-width: 80px; height: auto;" />
+  </div>
+
+ <h2>Château Lumière Hotel & Spa</h2>
+<h3 style="text-align: center; color: #555; margin-top: -10px; margin-bottom: 25px; font-weight: normal;">
+Sign-up Form
+</h3>
+ 
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+
+    <label for="idNumber">Passport/ID Number</label>
+    <input type="text" id="idNumber" name="idNumber" placeholder="Enter your passport or ID number" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+
+    <label for="contactNumber">Contact Number</label>
+    <input type="tel" id="contactNumber" name="contactNumber" placeholder="Enter your contact number" required />
+
+    <label for="roomNumber">Room Number</label>
+    <input type="text" id="roomNumber" name="roomNumber" placeholder="Enter your assigned room number" required />
+
+    <button type="submit">Submit</button>
+
+    <div class="success-message" id="successMessage" style="display: none;">
+      Sign-up successful! Thank you.
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById("signupForm");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = {
+        fullName: form.fullName.value,
+        idNumber: form.idNumber.value,
+        email: form.email.value,
+        contactNumber: form.contactNumber.value,
+        roomNumber: form.roomNumber.value,
+      };
+
+      try {
+        const response = await fetch("https://n8n.srv846726.hstgr.cloud/webhook-test/a80a11ca-3ea0-4f1e-8229-a882eb6beb5f", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          successMessage.style.display = "block";
+          form.reset(); // Clear form
+        } else {
+          alert("There was a problem with the signup. Please try again.");
+        }
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>  
